@@ -1,8 +1,10 @@
 import React, { Component } from "react";
 // import DeleteBtn from "../components/DeleteBtn";
-// import Jumbotron from "../components/Jumbotron";
+import Jumbotron from "../components/Jumbotron/Jumbotron";
+import { Row, Container } from "../components/Grid/Grid";
+import { Input, FormBtn} from "../components/BookSearch"
 import API from "../utils/API";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 
 class Books extends Component {
   state = {
@@ -12,30 +14,62 @@ class Books extends Component {
     description: "",
     image: "",
     link: "",
-    searchField: ""
+    search: "Learn Java"
   };
 
-  componentDidMount() {
-    // this.loadBooks();
-    API.search(this.state.searchField)
-    .then(res => this.setState({ books: res }))
-    .catch(err => console.log(err));
+  searchBooks = query => {
+    API.search(query)
+      .then(res => this.setState({ books: res }))
+      .catch(err => console.log(err));
   }
 
-//   handleFormSubmit = event => {
-    // When the form is submitted, prevent its default behavior, get recipes update the recipes state
-    // event.preventDefault();
+  handleInputChange = event => {
+    const value = event.target.value;
+    const name = event.target.name;
+    this.setState({
+      [name]: value
+    });
+  }
 
-//   };
+  handleFormSubmit = event => {
+    event.preventDefault();
+    this.searchBooks(this.state.search);
+  };
 
 
-render(){
 
-    return(
+  render() {
 
-        <div>yo</div>
+    const { updateSearch } = this.props;
+    return (
+      <Container fluid>
+        <Row>
+          <div className="col-md-8 offset-md-2">
+            <Jumbotron />
+            <form>
+              <Input
+                value={this.state.search}
+                onChange={this.handleInputChange}
+                name="search"
+                placeholder="Search Here"
+              />
+              <FormBtn
+                // disabled={!(this.state.author && this.state.title)}
+                onClick={this.handleFormSubmit}
+              >
+                Search
+              </FormBtn>
+            </form>
+          </div>
+          <div className="md-8 offset-md-2 sm-12">
+            <Jumbotron>
+              <h1>Search Results</h1>
+            </Jumbotron>
+          </div>
+        </Row>
+      </Container>
     )
-}
+  }
 
 }
 
