@@ -39,8 +39,6 @@ class Books extends Component {
 
 
   render() {
-
-    const { updateSearch } = this.props;
     return (
       <Container fluid>
         <Row>
