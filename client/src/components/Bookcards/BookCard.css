@@ -1,0 +1,8 @@
+.btn-beige {
+    border-color: #d6d0c4;
+    background-color: #dfcea6;
+  }
+
+.btn-beige:hover {
+    background-color: #cfb578
+}

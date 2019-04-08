@@ -1,18 +1,18 @@
 import React, { Component } from "react";
-// import DeleteBtn from "../components/DeleteBtn";
 import Jumbotron from "../components/Jumbotron/Jumbotron";
-import {Row, Container } from "../components/Grid/Grid";
+import { Row, Container } from "../components/Grid/Grid";
 import API from "../utils/API";
+import Bookcard from "../components/Bookcards/Bookcard"
 import { Link } from "react-router-dom";
 
 class Books extends Component {
   state = {
     books: [],
     title: "",
-    authors: [],
+    authors: "",
     description: "",
     image: "",
-    link: "",
+    link: ""
   };
 
   componentDidMount() {
@@ -23,12 +23,29 @@ class Books extends Component {
     console.log("loading books")
     API.getBooks()
       .then(res =>
-        this.setState({ books: res.data, title: "", author: "", description: "" })
+        this.setState({ 
+          books: res.data,
+          title: "",
+          authors: [],
+          description: "",
+          image: "",
+          link: ""
+        })
       )
       .catch(err => console.log(err));
   };
 
+  deleteBook = event => {
+    API.deleteBook(event.target.id)
+    .then(res => this.loadBooks())
+    .catch(err => console.log(err));
+  }
+
+  
+
   render() {
+
+    // const currentBtn = <DeleteBtn/>
 
     return (
       <Container fluid>
@@ -38,24 +55,18 @@ class Books extends Component {
           </div>
           <div className="col-md-6 col-sm-12">
             <Jumbotron>
-              <h1>Saved Books</h1>
+              <h1>Your Books Are Below</h1>
             </Jumbotron>
             {this.state.books.length ? (
-              <ul>
-                {this.state.books.map(book => (
-                  <li key={book._id}>
-                    <Link to={"/books/" + book._id}>
-                      <strong>
-                        {book.title} by {book.author}
-                      </strong>
-                    </Link>
-                    {/* <DeleteBtn onClick={() => this.deleteBook(book._id)} /> */}
-                  </li>
-                ))}
-              </ul>
+              <Bookcard
+              books={this.state.books}
+              buttonAction={this.deleteBook}
+              buttonClass= "btn mt-2 btn-beige"
+              buttonText= "Delete Book"
+              />
             ) : (
-              <h3>No Results to Display</h3>
-            )}
+                <h3>No Results to Display</h3>
+              )}
           </div>
         </Row>
         <Row>
