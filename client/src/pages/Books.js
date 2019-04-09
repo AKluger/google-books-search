@@ -4,7 +4,6 @@ import { Row, Container } from "../components/Grid/Grid";
 import BookCard from "../components/Bookcards/Bookcard"
 import { Input, FormBtn } from "../components/BookSearch/BookSearch"
 import API from "../utils/API";
-// import { Link } from "react-router-dom";
 
 //function to reformat googleBook object to match our db schema
 const formatResults = googleResults => {
@@ -65,6 +64,7 @@ class Books extends Component {
     API.saveBook(savedBook)
       .then(res => {
         console.log(res.status);
+        alert("Book Saved!")
       })
       .catch(err => { console.log(err) })
   }
@@ -92,11 +92,9 @@ class Books extends Component {
             </form>
           </div>
           <div className="col-md-8 offset-md-2">
-            {/* <Jumbotron> */}
-            {/* <h1>Search Results</h1> */}
-            {/* </Jumbotron> */}
           </div>
           {this.state.books.length ? (
+                    
             <BookCard
               books={this.state.books}
               buttonAction={this.saveBook}
