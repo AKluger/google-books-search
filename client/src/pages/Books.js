@@ -2,32 +2,55 @@ import React, { Component } from "react";
 import Jumbotron from "../components/Jumbotron/Jumbotron";
 import { Row, Container } from "../components/Grid/Grid";
 import BookCard from "../components/Bookcards/Bookcard"
-import { Input, FormBtn} from "../components/BookSearch"
+import { Input, FormBtn } from "../components/BookSearch/BookSearch"
 import API from "../utils/API";
 // import { Link } from "react-router-dom";
+
+//function to reformat googleBook object to match our db schema
+const formatResults = googleResults => {
+  const books = [];
+
+  googleResults.map(book => {
+
+    const formattedBook = {
+      title: book.volumeInfo.title,
+      authors: book.volumeInfo.authors
+        ? book.volumeInfo.authors
+        : ['Author(s) Not Available.'],
+      description: book.volumeInfo.description
+        ? book.volumeInfo.description
+        : 'No Description Available.',
+      googleId: book.id,
+      image: book.volumeInfo.imageLinks
+        ? book.volumeInfo.imageLinks.thumbnail : '',
+      link: book.volumeInfo.canonicalVolumeLink
+    };
+
+    books.push(formattedBook);
+    return books
+  });
+  return books;
+}
 
 class Books extends Component {
   state = {
     books: [],
-    title: "",
-    authors: [],
-    description: "",
-    image: "",
-    link: "",
-    search: "Learn Java"
+    search: ""
   };
 
   searchBooks = query => {
     API.search(query)
-      .then(res => this.setState({ books: res.data }))
+      .then(res => {
+        const formattedBooks = formatResults(res.data.items);
+        this.setState({ books: formattedBooks })
+      })
       .catch(err => console.log(err));
   }
 
+
   handleInputChange = event => {
-    const value = event.target.value;
-    const name = event.target.name;
     this.setState({
-      [name]: value
+      search: event.target.value
     });
   }
 
@@ -36,25 +59,23 @@ class Books extends Component {
     this.searchBooks(this.state.search);
   };
 
-  // need to format books with googleId
   saveBook = event => {
     const savedBook = this.state.books.find(book => book.googleId === event.target.id);
 
     API.saveBook(savedBook)
-    .then(res => {
-      console.log(res.status);
-    })
-    .catch(err => {console.log(err)})
+      .then(res => {
+        console.log(res.status);
+      })
+      .catch(err => { console.log(err) })
   }
-
-
 
   render() {
     return (
-      <Container fluid>
+      <Container fluid text-center>
         <Row>
           <div className="col-md-8 offset-md-2">
-            <Jumbotron />
+            <Jumbotron><h1>Welcome to Google Books Search</h1>
+            </Jumbotron>
             <form>
               <Input
                 value={this.state.search}
@@ -70,17 +91,21 @@ class Books extends Component {
               </FormBtn>
             </form>
           </div>
-          <div className="md-8 offset-md-2 sm-12">
-            <Jumbotron>
-              <h1>Search Results</h1>
-            </Jumbotron>
+          <div className="col-md-8 offset-md-2">
+            {/* <Jumbotron> */}
+            {/* <h1>Search Results</h1> */}
+            {/* </Jumbotron> */}
           </div>
-          <BookCard
-          books={this.state.books}
-          buttonAction={this.saveBook}
-          buttonType="btn mt-2"
-          buttonText="Save Book"
-        />
+          {this.state.books.length ? (
+            <BookCard
+              books={this.state.books}
+              buttonAction={this.saveBook}
+              buttonClass="btn btn-beige mt-1"
+              buttonText= "Save Book"
+            />) : (<div className="col-md-8 offset-md-2 text-center">
+              <h3>No Results Yet</h3>
+            </div>
+            )}
         </Row>
       </Container>
     )

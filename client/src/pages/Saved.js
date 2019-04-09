@@ -23,7 +23,7 @@ class Books extends Component {
     console.log("loading books")
     API.getBooks()
       .then(res =>
-        this.setState({ 
+        this.setState({
           books: res.data,
           title: "",
           authors: [],
@@ -37,35 +37,30 @@ class Books extends Component {
 
   deleteBook = event => {
     API.deleteBook(event.target.id)
-    .then(res => this.loadBooks())
-    .catch(err => console.log(err));
+      .then(res => this.loadBooks())
+      .catch(err => console.log(err));
   }
 
-  
+
 
   render() {
-
-    // const currentBtn = <DeleteBtn/>
-
     return (
       <Container fluid>
         <Row>
-          <div className="col-md-12">
-            <Jumbotron />
-          </div>
-          <div className="col-md-6 col-sm-12">
-            <Jumbotron>
-              <h1>Your Books Are Below</h1>
+          <div className="col-md-8 offset-md-2">
+            <Jumbotron className="banner">
+              <h1>Your Bookshelf Awaits!</h1>
             </Jumbotron>
             {this.state.books.length ? (
               <Bookcard
-              books={this.state.books}
-              buttonAction={this.deleteBook}
-              buttonClass= "btn mt-2 btn-beige"
-              buttonText= "Delete Book"
+                books={this.state.books}
+                buttonAction={this.deleteBook}
+                buttonClass="btn mt-1 btn-beige"
+                buttonText="Delete Book"
               />
-            ) : (
-                <h3>No Results to Display</h3>
+            ) : (<div className="col-md-8 offset-md-2 text-center">
+              <h3>No Results to Display</h3>
+            </div>
               )}
           </div>
         </Row>
