@@ -19,7 +19,7 @@ function BookCard(props) {
                             <img src={book.image}
                                 className="align-self-center mr-3" alt="book cover" />
                             <div>
-                                <h6 className="mt-2">{book.authors.join(",")}</h6>
+                                <h6 className="mt-2">{book.authors.join(" & ")}</h6>
                                 <p className="mb-0">{book.description}</p>
                             </div>
                         </div>

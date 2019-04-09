@@ -19,7 +19,7 @@ class Books extends Component {
 
   searchBooks = query => {
     API.search(query)
-      .then(res => this.setState({ books: res }))
+      .then(res => this.setState({ books: res.data }))
       .catch(err => console.log(err));
   }
 
@@ -36,6 +36,7 @@ class Books extends Component {
     this.searchBooks(this.state.search);
   };
 
+  // need to format books with googleId
   saveBook = event => {
     const savedBook = this.state.books.find(book => book.googleId === event.target.id);
 
