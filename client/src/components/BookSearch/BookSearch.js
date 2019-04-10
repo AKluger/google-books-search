@@ -1,4 +1,5 @@
 import React from 'react';
+import '../Bookcards/BookCard.css';
 
 export function Input(props) {
   return (
@@ -10,7 +11,7 @@ export function Input(props) {
 
 export function FormBtn(props) {
   return (
-    <button {...props} style={{ float: "right", marginBottom: 10 }}>
+    <button className="btn btn-beige shadow-none" {...props} style={{ float: "right", marginBottom: 10 }}>
       {props.children}
     </button>
   );
