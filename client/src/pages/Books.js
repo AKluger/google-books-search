@@ -98,7 +98,7 @@ class Books extends Component {
             <BookCard
               books={this.state.books}
               buttonAction={this.saveBook}
-              buttonClass="btn btn-beige mt-1"
+              buttonClass="btn btn-beige mt-1 shadow-none"
               buttonText= "Save Book"
             />) : (<div className="col-md-8 offset-md-2 text-center">
               <h3>No Results Yet</h3>

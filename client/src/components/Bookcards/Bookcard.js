@@ -16,7 +16,7 @@ function BookCard(props) {
                     <div className="card-body">
                     <div className="d-flex justify-content-between">
                         <h4 className="card-title">{book.title}</h4>
-                        <div>                        <a className="btn btn-beige mr-1 mt-1" href={book.link} target="_blank"
+                        <div>                        <a className="btn btn-beige mr-1 mt-1 shadow-none" href={book.link} target="_blank"
                             rel="noopener noreferrer">View Book</a>
                         <button className={props.buttonClass}
                             onClick={props.buttonAction}
