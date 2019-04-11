@@ -8,27 +8,25 @@ function Nav() {
         Google Book Search
       </Link>
       <div>
-        <div className="navbar-nav">
-            <Link
-              to="/"
-              className={
-                window.location.pathname === "/" || window.location.pathname === "/search"
-                  ? "nav-link nav-item active"
-                  : "nav-link nav-item"
-              }
+        <ul className="navbar-nav mr-auto">
+          <li className="nav-item">
+            <Link to="/"
+              className={window.location.pathname === "/" || window.location.pathname === "/search" ? "nav-link nav-item active" : "nav-link nav-item"}
             >
               Search
             </Link>
-            <Link
-              to="/saved"
+          </li>
+          <li>
+            <Link to="/saved"
               className={window.location.pathname === "/saved" ? "nav-link nav-item active" : "nav-link nav-item "}
             >
               Saved
             </Link>
-        </div>
+          </li>
+        </ul>
       </div>
 
-    </nav>
+    </nav >
   );
 }
 

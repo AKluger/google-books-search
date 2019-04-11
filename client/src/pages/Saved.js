@@ -7,16 +7,12 @@ import { Link } from "react-router-dom";
 
 class Books extends Component {
   state = {
-    books: [],
-    title: "",
-    authors: "",
-    description: "",
-    image: "",
-    link: ""
+    books: []
   };
 
   componentDidMount() {
     this.loadBooks();
+
   }
 
   loadBooks = () => {
@@ -24,12 +20,7 @@ class Books extends Component {
     API.getBooks()
       .then(res =>
         this.setState({
-          books: res.data,
-          title: "",
-          authors: [],
-          description: "",
-          image: "",
-          link: ""
+          books: res.data
         })
       )
       .catch(err => console.log(err));
@@ -41,13 +32,11 @@ class Books extends Component {
       .catch(err => console.log(err));
   }
 
-
-
   render() {
     return (
       <Container fluid>
         <Row>
-          <div className="col-md-8 offset-md-2">
+          <div className="col-md-10 offset-md-1">
             <Jumbotron className="banner">
               <h1>Your Bookshelf Awaits!</h1>
             </Jumbotron>
@@ -62,18 +51,18 @@ class Books extends Component {
               <h3>No Results to Display</h3>
             </div>
               )}
+                        <div className="col-md-2">
+            <Link to="/">← Back to Search</Link>
+          </div>
           </div>
         </Row>
         <Row>
-          <div className="col-md-2">
-            <Link to="/">← Back to Search</Link>
-          </div>
+
         </Row>
       </Container>
     )
   }
 
 }
-
 
 export default Books;

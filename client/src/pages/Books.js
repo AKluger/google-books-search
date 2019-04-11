@@ -21,7 +21,8 @@ const formatResults = googleResults => {
         : 'No Description Available.',
       googleId: book.id,
       image: book.volumeInfo.imageLinks
-        ? book.volumeInfo.imageLinks.thumbnail : '',
+        ? book.volumeInfo.imageLinks.thumbnail
+        : "https://dummyimage.com/128x206/c4bfb2/051421.jpg&text=No+Image+:/",
       link: book.volumeInfo.canonicalVolumeLink
     };
 
@@ -45,7 +46,6 @@ class Books extends Component {
       })
       .catch(err => console.log(err));
   }
-
 
   handleInputChange = event => {
     this.setState({
@@ -73,7 +73,7 @@ class Books extends Component {
     return (
       <Container fluid text-center>
         <Row>
-          <div className="col-md-8 offset-md-2">
+          <div className="col-md-10 offset-md-1">
             <Jumbotron><h1>Welcome to Google Books Search</h1>
             </Jumbotron>
             <form>
@@ -84,7 +84,6 @@ class Books extends Component {
                 placeholder="Search Here"
               />
               <FormBtn
-                // disabled={!(this.state.author && this.state.title)}
                 onClick={this.handleFormSubmit}
               >
                 Search
@@ -94,12 +93,12 @@ class Books extends Component {
           <div className="col-md-8 offset-md-2">
           </div>
           {this.state.books.length ? (
-                    
+
             <BookCard
               books={this.state.books}
               buttonAction={this.saveBook}
               buttonClass="btn btn-beige mt-1 shadow-none"
-              buttonText= "Save Book"
+              buttonText="Save Book"
             />) : (<div className="col-md-8 offset-md-2 text-center">
               <h3>No Results Yet</h3>
             </div>
