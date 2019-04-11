@@ -23,7 +23,7 @@ function BookCard(props) {
                         <div>
                             <div className="d-flex justify-content-between mt-1">
                                 <img src={book.image}
-                                    className="align-self-center mr-3" alt="book cover" />
+                                    className="align-self-start mr-3" alt="book cover" />
                                 <p className="mb-0 overflow-hidden">{book.description}</p>
                             </div>
                             <h5 className="mt-2">Authored By: {book.authors.join(" & ")}</h5>

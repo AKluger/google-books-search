@@ -44,7 +44,7 @@ class Books extends Component {
               <Bookcard
                 books={this.state.books}
                 buttonAction={this.deleteBook}
-                buttonClass="btn mt-1 btn-beige"
+                buttonClass="btn mt-1 mr-1 btn-beige shadow-none"
                 buttonText="Delete Book"
               />
             ) : (<div className="col-md-8 offset-md-2 text-center">
